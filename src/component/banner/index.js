@@ -2,6 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { Link } from "react-router-dom";
 
 function Banner() {
   return (
@@ -11,10 +12,10 @@ function Banner() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/home">Home</Nav.Link>
+            <Link to='/'><Nav style={{margin:"20px"}}>Home</Nav></Link>
             
-            {/* <Nav.Link href="/login">Login</Nav.Link> */}
-            <Nav.Link href="/order">Order</Nav.Link>
+            {/* <Nav href="/login">Login</Nav> */}
+            <Link to='/order'><Nav style={{margin:"20px"}}>Order</Nav></Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

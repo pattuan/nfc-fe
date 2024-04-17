@@ -11,7 +11,7 @@ import {
 } from "mdb-react-ui-kit";
 import { CookiesProvider, useCookies } from "react-cookie";
 
-import { Link, redirect } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import register from "../../page/register";
 import { useEffect } from "react";
 
@@ -19,6 +19,7 @@ function App() {
   const [ email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cookies, setCookie] = useCookies(["user"]);
+  const navigate = useNavigate();
 
   useEffect(()=>{
     if (!!cookies.token){
@@ -57,7 +58,7 @@ function App() {
       .then((result) => {
         if (result.isSuccess) {
           setCookie("token", result.token);
-          redirect('/home')
+          navigate('/')
         } else {
           alert(result.message);
         }

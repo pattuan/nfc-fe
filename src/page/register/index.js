@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBInput } from 'mdb-react-ui-kit';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -40,7 +43,7 @@ function App() {
             .then((result) => {
                 if (result.isSuccess) {
                     alert("Registration successful!");
-                    window.location.href = "/login";
+                    navigate('/login')
                     // Redirect or handle success as needed
                 } else {
                     alert(result.message);

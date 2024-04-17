@@ -11,7 +11,7 @@ import {
 } from "mdb-react-ui-kit";
 import { useEffect } from "react";
 import { CookiesProvider, useCookies } from "react-cookie";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 var group = [
   {
@@ -90,9 +90,11 @@ const listCard = (title, data = []) => {
 const Home = () => {
 
   const [cookies] = useCookies(["user"]);
+  const navigate = useNavigate();
+  
   useEffect(()=>{
-    if (!cookies.token){
-      redirect("/login")
+    if (!cookies.token){ 
+      navigate("/login")
     }
   })
 
