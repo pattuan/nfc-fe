@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/nfc-fe/static/css/main.ef04fed0.css",
-    "main.js": "/nfc-fe/static/js/main.a8c13416.js",
+    "main.js": "/nfc-fe/static/js/main.75dcb728.js",
     "static/js/453.9441e9f3.chunk.js": "/nfc-fe/static/js/453.9441e9f3.chunk.js",
     "static/media/fa-solid-900.ttf": "/nfc-fe/static/media/fa-solid-900.bacd5de623fb563b961a.ttf",
     "static/media/fa-brands-400.ttf": "/nfc-fe/static/media/fa-brands-400.60127e352b7a11f7f1bc.ttf",
@@ -14,11 +14,11 @@
     "static/media/logo.svg": "/nfc-fe/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/nfc-fe/index.html",
     "main.ef04fed0.css.map": "/nfc-fe/static/css/main.ef04fed0.css.map",
-    "main.a8c13416.js.map": "/nfc-fe/static/js/main.a8c13416.js.map",
+    "main.75dcb728.js.map": "/nfc-fe/static/js/main.75dcb728.js.map",
     "453.9441e9f3.chunk.js.map": "/nfc-fe/static/js/453.9441e9f3.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ef04fed0.css",
-    "static/js/main.a8c13416.js"
+    "static/js/main.75dcb728.js"
   ]
 }
