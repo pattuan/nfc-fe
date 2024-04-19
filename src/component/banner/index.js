@@ -3,8 +3,10 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link } from "react-router-dom";
+import Logout from "../../page/logout";
 
 function Banner() {
+  const lgo = Logout();
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -12,14 +14,18 @@ function Banner() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
+            
             <Link to='/'><Nav style={{margin:"20px"}}>Home</Nav></Link>
             
             {/* <Nav href="/login">Login</Nav> */}
             <Link to='/order'><Nav style={{margin:"20px"}}>Order</Nav></Link>
+            <Link to='/register'><Nav style={{margin:"20px"}}>Register</Nav></Link>
+            <Link to='/login'><Nav style={{margin:"20px"}} onClick={lgo}>LogOut</Nav></Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
+
   );
 }
 

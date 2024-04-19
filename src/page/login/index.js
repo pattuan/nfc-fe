@@ -14,6 +14,7 @@ import { CookiesProvider, useCookies } from "react-cookie";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import register from "../../page/register";
 import { useEffect } from "react";
+import home from "../../page/home";
 
 function App() {
   const [ email, setEmail] = useState("");
@@ -58,7 +59,7 @@ function App() {
       .then((result) => {
         if (result.isSuccess) {
           setCookie("token", result.token);
-          navigate('/')
+          navigate('/home')
         } else {
           alert(result.message);
         }
