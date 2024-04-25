@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {HashRouter} from 'react-router-dom'
+import { CartProvider } from "react-use-cart";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
   <HashRouter>
-    <App />
+    <CartProvider>
+      <App />
+    </CartProvider>
   </HashRouter>
   </React.StrictMode>
 );

@@ -9,15 +9,15 @@ import {
   MDBRipple,
 } from "mdb-react-ui-kit";
 
-export default function ProductCard({ title, desc, price, image, addToCart }) {
-  const productItem = { title, desc, price, image };
+export default function ProductCard({ title, desc, price, image, id, quantity, addToCart }) {
+  const productItem = { title, desc, price, image, id, quantity};
 
   const handleAddToCart = () => {
-    addToCart(productItem);
+    addToCart(productItem,1);
   };
 
   return (
-    <MDBCard style={{ maxWidth: "40rem", marginTop: "15px" }}>
+    <MDBCard style={{ maxWidth: "50rem", marginTop: "15px" }}>
       <MDBRipple
         rippleColor="light"
         rippleTag="div"
