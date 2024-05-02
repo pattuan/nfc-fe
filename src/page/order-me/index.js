@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react";
 
 import { MDBTable, MDBTableHead, MDBTableBody, MDBBtn } from 'mdb-react-ui-kit';
-
+import { useCookies } from "react-cookie";
 import config from "../../config";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import moment from 'moment-timezone';
+import 'moment/locale/vi';
 
-const Order = () => {
-  const [cookies, setCookie] = useCookies(["user"]);
+
+const OrderMe = () => {
+
   const [data, setData] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const [isChangeCart, setIsChangeCart] = useState(false)
+  const [total, setTotal] = useState(0)
+  const [cookies, setCookie] = useCookies(["user"]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,14 +32,23 @@ const Order = () => {
     // check
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("token", `Bearer ${cookies.token}`);
+
+    const raw = JSON.stringify({
+      user_id: cookies.user._id,
+      user_email: cookies.user.email,
+      products: cartItems,
+      total: total,
+    });
 
     const requestOptions = {
       method: "POST",
       headers: myHeaders,
+      body: raw,
       redirect: "follow",
     };
 
-    fetch(`${config.API}/v1/order/`, requestOptions)
+    fetch(`${config.API}/v1/order/me`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         console.log(result)
@@ -46,8 +62,8 @@ const Order = () => {
             return {
               id: e._id,
               name: productNames,
-              userEmail: e.user_email,
-              total: e.total
+              total: e.total,
+              time: moment(e.createdAt).tz('Asia/Ho_Chi_Minh').locale('en').format('LLL'),
             }
           }))
         } else {
@@ -56,7 +72,9 @@ const Order = () => {
       })
       .catch((error) => console.error(error));
 
-  }, [])
+  }, [cookies])
+
+  // Hàm remove product khi thông tin đã cũ
   const handleRemove = (id) => {
     // Gửi yêu cầu HTTP DELETE tới endpoint API để xóa đơn hàng từ MongoDB
     const requestOptions = {
@@ -76,6 +94,7 @@ const Order = () => {
       })
       .catch(error => console.error("Lỗi khi xóa đơn hàng:", error));
   };
+  
 
   return (
     <>
@@ -88,8 +107,8 @@ const Order = () => {
             <tr>
               <th scope='col'>Order Id</th>
               <th scope='col'>Products</th>
-              <th scope='col'>User Email</th>
               <th scope='col'>Total</th>
+              <th scope='col'>Time</th>
               <th></th>
             </tr>
           </MDBTableHead>
@@ -100,23 +119,23 @@ const Order = () => {
                   <tr key={i}>
                     <th scope='row'>{e.id}</th>
                     <td>{e.name}</td>
-                    <td>{e.userEmail}</td>
                     <td>{e.total}</td>
-                    <td><Link to={`/order/${e.id}`}>Detail</Link></td>
-                    <td>
+                    <td>{e.time}</td>
+                    <th>
                       <MDBBtn outline color="dark" size="sm" onClick={() => handleRemove(e.id)}>
                         REMOVE
                       </MDBBtn>
-                    </td>
+                    </th>
                   </tr>
                 )
               })
             }
           </MDBTableBody>
+
         </MDBTable>
       </section>
     </>
   );
 };
 
-export default Order;
+export default OrderMe;

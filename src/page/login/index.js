@@ -14,6 +14,7 @@ import { CookiesProvider, useCookies } from "react-cookie";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import register from "../../page/register";
 import { useEffect } from "react";
+import config from '../../config'
 import home from "../../page/home";
 
 function App() {
@@ -54,11 +55,12 @@ function App() {
     };
 
     // console.log("go login")
-    fetch("https://iot-be-y8op.onrender.com/v1/auth/login", requestOptions)
+    fetch(`${config.API}/v1/auth/login`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result.isSuccess) {
           setCookie("token", result.token);
+          setCookie("user", result.user);
           navigate('/home')
         } else {
           alert(result.message);

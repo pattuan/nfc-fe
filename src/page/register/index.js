@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBInput } from 'mdb-react-ui-kit';
 import { useNavigate } from 'react-router-dom';
+import config from "../../config";
 
 function App() {
     const [formData, setFormData] = useState({
@@ -38,7 +39,7 @@ function App() {
         };
 
         // Send request to register
-        fetch("https://iot-be-y8op.onrender.com/v1/auth/register", requestOptions)
+        fetch(`${config.API}/v1/auth/register`, requestOptions)
             .then((response) => response.json())
             .then((result) => {
                 if (result.isSuccess) {
