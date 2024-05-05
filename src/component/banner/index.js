@@ -38,7 +38,7 @@ function Banner() {
   }, [cookies.token]);
 
   return (
-  
+
     <MDBNavbar expand='lg' light bgColor='light'>
       <MDBContainer fluid>
         <MDBNavbarBrand href='#'>IOT</MDBNavbarBrand>
@@ -54,20 +54,23 @@ function Banner() {
 
         <MDBCollapse navbar open={openBasic}>
           <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
-            {isLogin && <MDBNavbarItem onClick={() => setOpenBasic(false)}>
+            {isLogin && <>
+              <MDBNavbarItem onClick={() => setOpenBasic(false)}>
 
-              <Link to='/'> <MDBNavbarLink active aria-current='page'>Home </MDBNavbarLink> </Link>
+                <Link to='/'> <MDBNavbarLink active aria-current='page'>Home </MDBNavbarLink> </Link>
 
-            </MDBNavbarItem>}
+              </MDBNavbarItem>
+              <MDBNavbarItem onClick={() => setOpenBasic(false)}><Link to='/cart'> <MDBNavbarLink active>Cart </MDBNavbarLink></Link></MDBNavbarItem>
+              <MDBNavbarItem onClick={() => setOpenBasic(false)}><Link to='/register'><MDBNavbarLink active>Register </MDBNavbarLink></Link></MDBNavbarItem>
+              <MDBNavbarItem onClick={() => setOpenBasic(false)}><Link to='/order/me'><MDBNavbarLink active>CheckOrder </MDBNavbarLink></Link></MDBNavbarItem>
+              <MDBNavbarItem onClick={() => {
+                lgo()
+                setOpenBasic(false)
+                setIsLogin(false)
+              }}><MDBNavbarLink active>LogOut </MDBNavbarLink></MDBNavbarItem>
+            </>}
 
-            {isLogin && <MDBNavbarItem onClick={() => setOpenBasic(false)}><Link to='/cart'> <MDBNavbarLink active>Cart </MDBNavbarLink></Link></MDBNavbarItem>}
-            {isLogin && <MDBNavbarItem onClick={() => setOpenBasic(false)}><Link to='/register'><MDBNavbarLink active>Register </MDBNavbarLink></Link></MDBNavbarItem>}
-            {isLogin &&  <MDBNavbarItem onClick={() => setOpenBasic(false)}><Link to='/order/me'><MDBNavbarLink active>CheckOrder </MDBNavbarLink></Link></MDBNavbarItem>}
-            {isLogin && <MDBNavbarItem  onClick={()=>{
-              lgo()
-              setOpenBasic(false)
-              setIsLogin(false)
-            }}><MDBNavbarLink active>LogOut </MDBNavbarLink></MDBNavbarItem>}
+
 
 
           </MDBNavbarNav>
