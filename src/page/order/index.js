@@ -12,13 +12,16 @@ const Order = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!cookies.token) {
-  //     navigate("/login");
-  //     alert("Please Login Or Register!");
-  //     window.location.reload();
-  //   }
-  // }, [cookies.token, navigate]);
+  useEffect(() => {
+    // Kiểm tra xem người dùng có phải là admin@gmail.com không
+    if (cookies.user.email !== "admin@gmail.com") {
+      // Nếu không phải, chuyển hướng đến trang chính hoặc trang khác
+      navigate("/");
+      console.log(cookies.user.email)
+      return;
+    }
+    
+  }, [cookies.user, navigate]);
 
   useEffect(() => {
 

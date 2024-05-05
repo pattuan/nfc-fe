@@ -68,6 +68,7 @@ function Banner() {
                 setOpenBasic(false)
                 setIsLogin(false)
               }}><MDBNavbarLink active>LogOut </MDBNavbarLink></MDBNavbarItem>
+              <MDBNavbarItem onClick={() => setOpenBasic(false)}><Link to='/order'><MDBNavbarLink active>CheckAdmin </MDBNavbarLink></Link></MDBNavbarItem>
             </>}
 
 
