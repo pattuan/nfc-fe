@@ -63,12 +63,12 @@ function Banner() {
               <MDBNavbarItem onClick={() => setOpenBasic(false)}><Link to='/cart'> <MDBNavbarLink active>Cart </MDBNavbarLink></Link></MDBNavbarItem>
               <MDBNavbarItem onClick={() => setOpenBasic(false)}><Link to='/register'><MDBNavbarLink active>Register </MDBNavbarLink></Link></MDBNavbarItem>
               <MDBNavbarItem onClick={() => setOpenBasic(false)}><Link to='/order/me'><MDBNavbarLink active>CheckOrder </MDBNavbarLink></Link></MDBNavbarItem>
+              <MDBNavbarItem onClick={() => setOpenBasic(false)}><Link to='/order'><MDBNavbarLink active>CheckAdmin </MDBNavbarLink></Link></MDBNavbarItem>
               <MDBNavbarItem onClick={() => {
                 lgo()
                 setOpenBasic(false)
                 setIsLogin(false)
               }}><MDBNavbarLink active>LogOut </MDBNavbarLink></MDBNavbarItem>
-              <MDBNavbarItem onClick={() => setOpenBasic(false)}><Link to='/order'><MDBNavbarLink active>CheckAdmin </MDBNavbarLink></Link></MDBNavbarItem>
             </>}
 
 

@@ -11,16 +11,17 @@ const Order = () => {
   const [cookies, setCookie] = useCookies(["user"]);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     // Kiểm tra xem người dùng có phải là admin@gmail.com không
     if (cookies.user.email !== "admin@gmail.com") {
-      // Nếu không phải, chuyển hướng đến trang chính hoặc trang khác
-      navigate("/");
-      console.log(cookies.user.email)
-      return;
+      // Nếu không phải, hiển thị thông báo
+      setIsAdmin(false);
+    } else {
+      // Nếu là admin, đặt biến state để hiển thị nội dung
+      setIsAdmin(true);
     }
-    
   }, [cookies.user, navigate]);
 
   useEffect(() => {
@@ -66,7 +67,7 @@ const Order = () => {
       method: "DELETE",
       headers: { 'Content-Type': 'application/json' }
     };
-  
+
     fetch(`${config.API}/v1/order/me/${id}`, requestOptions)
       .then((response) => response.json())
       .then(result => {
@@ -80,26 +81,28 @@ const Order = () => {
       .catch(error => console.error("Lỗi khi xóa đơn hàng:", error));
   };
 
+  const handlehome = () => {
+    navigate("/");
+  }
+
   return (
     <>
-      <h1 style={{ textAlign: "center", marginTop: "20px" }}>Order</h1>
-
-
-      <section className="h-100 gradient-custom" style={{ backgroundColor: "#eee", padding: "20px", marginTop: "20px" }}>
-        <MDBTable>
-          <MDBTableHead>
-            <tr>
-              <th scope='col'>Order Id</th>
-              <th scope='col'>Products</th>
-              <th scope='col'>User Email</th>
-              <th scope='col'>Total</th>
-              <th></th>
-            </tr>
-          </MDBTableHead>
-          <MDBTableBody>
-            {
-              data.map((e, i) => {
-                return (
+      {isAdmin ? (
+        <>
+          <h1 style={{ textAlign: "center", marginTop: "20px" }}>Order</h1>
+          <section className="h-100 gradient-custom" style={{ backgroundColor: "#eee", padding: "20px", marginTop: "20px" }}>
+            <MDBTable>
+              <MDBTableHead>
+                <tr>
+                  <th scope='col'>Order Id</th>
+                  <th scope='col'>Products</th>
+                  <th scope='col'>User Email</th>
+                  <th scope='col'>Total</th>
+                  <th></th>
+                </tr>
+              </MDBTableHead>
+              <MDBTableBody>
+                {data.map((e, i) => (
                   <tr key={i}>
                     <th scope='row'>{e.id}</th>
                     <td>{e.name}</td>
@@ -112,12 +115,17 @@ const Order = () => {
                       </MDBBtn>
                     </td>
                   </tr>
-                )
-              })
-            }
-          </MDBTableBody>
-        </MDBTable>
-      </section>
+                ))}
+              </MDBTableBody>
+            </MDBTable>
+          </section>
+        </>
+      ) : (
+        <>
+          <h1 style={{ textAlign: "center", marginTop: "20px" }}>YOU ARE NOT ADMIN</h1>
+          <MDBBtn style={{ textAlign: "center", marginTop: "20px" }} outline color="dark" size="sm" onClick={() => handlehome()}>PLEASE RETURN HOME PAGE</MDBBtn>
+        </>
+      )}
     </>
   );
 };
