@@ -12,13 +12,13 @@ const Order = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!cookies.token) {
-      navigate("/login");
-      alert("Please Login Or Register!");
-      window.location.reload();
-    }
-  }, [cookies.token, navigate]);
+  // useEffect(() => {
+  //   if (!cookies.token) {
+  //     navigate("/login");
+  //     alert("Please Login Or Register!");
+  //     window.location.reload();
+  //   }
+  // }, [cookies.token, navigate]);
 
   useEffect(() => {
 
