@@ -6,28 +6,74 @@ import { Link } from "react-router-dom";
 import Logout from "../../page/logout";
 import OrderMe from "../../page/order-me";
 
+import {
+  MDBContainer,
+  MDBNavbar,
+  MDBNavbarBrand,
+  MDBNavbarToggler,
+  MDBIcon,
+  MDBNavbarNav,
+  MDBNavbarItem,
+  MDBNavbarLink,
+  MDBBtn,
+  MDBDropdown,
+  MDBDropdownToggle,
+  MDBDropdownMenu,
+  MDBDropdownItem,
+  MDBCollapse,
+} from 'mdb-react-ui-kit';
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+
 function Banner() {
   const lgo = Logout();
+  const [openBasic, setOpenBasic] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const [cookies, setCookie, removeCookies] = useCookies(['token', 'user']);
+
+  useEffect(() => {
+    if (cookies.token) {
+      setIsLogin(true);
+    }
+  }, [cookies.token]);
+
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
-      <Container>
-        <Navbar.Brand>IOT</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            
-            <Link to='/'><Nav style={{margin:"20px"}}>Home</Nav></Link>
-            
-            {/* <Nav href="/login">Login</Nav> */}
-            <Link to='/cart'><Nav style={{margin:"20px"}}>Cart</Nav></Link>
-            <Link to='/register'><Nav style={{margin:"20px"}}>Register</Nav></Link>
-            <Link to='/order/me'><Nav style={{margin:"20px"}}>CheckOrder</Nav></Link>
-            <Link to='/login'><Nav style={{margin:"20px"}} onClick={lgo}>LogOut</Nav></Link>
-            
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+  
+    <MDBNavbar expand='lg' light bgColor='light'>
+      <MDBContainer fluid>
+        <MDBNavbarBrand href='#'>IOT</MDBNavbarBrand>
+
+        <MDBNavbarToggler
+          aria-controls='navbarSupportedContent'
+          aria-expanded='false'
+          aria-label='Toggle navigation'
+          onClick={() => setOpenBasic(!openBasic)}
+        >
+          <MDBIcon icon='bars' fas />
+        </MDBNavbarToggler>
+
+        <MDBCollapse navbar open={openBasic}>
+          <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
+            {isLogin && <MDBNavbarItem onClick={() => setOpenBasic(false)}>
+
+              <Link to='/'> <MDBNavbarLink active aria-current='page'>Home </MDBNavbarLink> </Link>
+
+            </MDBNavbarItem>}
+
+            {isLogin && <MDBNavbarItem onClick={() => setOpenBasic(false)}><Link to='/cart'> <MDBNavbarLink active>Cart </MDBNavbarLink></Link></MDBNavbarItem>}
+            {isLogin && <MDBNavbarItem onClick={() => setOpenBasic(false)}><Link to='/register'><MDBNavbarLink active>Register </MDBNavbarLink></Link></MDBNavbarItem>}
+            {isLogin &&  <MDBNavbarItem onClick={() => setOpenBasic(false)}><Link to='/order/me'><MDBNavbarLink active>CheckOrder </MDBNavbarLink></Link></MDBNavbarItem>}
+            {isLogin && <MDBNavbarItem  onClick={()=>{
+              lgo()
+              setOpenBasic(false)
+              setIsLogin(false)
+            }}><MDBNavbarLink active>LogOut </MDBNavbarLink></MDBNavbarItem>}
+
+
+          </MDBNavbarNav>
+        </MDBCollapse>
+      </MDBContainer>
+    </MDBNavbar>
 
   );
 }

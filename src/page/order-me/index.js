@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { MDBTable, MDBTableHead, MDBTableBody, MDBBtn } from 'mdb-react-ui-kit';
 import { useCookies } from "react-cookie";
 import config from "../../config";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import moment from 'moment-timezone';
 import 'moment/locale/vi';
 
@@ -22,12 +22,19 @@ const OrderMe = () => {
   useEffect(() => {
     if (!cookies.token) {
       navigate("/login");
-      alert("Please Login Or Register!");
-      window.location.reload();
+      return
+      
     }
   }, [cookies.token, navigate]);
 
   useEffect(() => {
+
+    if (!cookies.user) {
+      navigate("/login");
+      return
+    }
+
+    
 
     // check
     const myHeaders = new Headers();
